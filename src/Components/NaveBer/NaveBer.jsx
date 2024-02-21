@@ -18,7 +18,7 @@ const NaveBer = () => {
     window.location.href = "/login";
   }
 
-console.log(user);
+// console.log(user);
 
   return (
     <div className="bg-white sticky top-0 z-50  "  >

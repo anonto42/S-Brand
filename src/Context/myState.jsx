@@ -1,12 +1,13 @@
 import {React,useEffect,useState} from 'react'
 import MyContext from './MyContext';
-import { Timestamp, addDoc, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { fireDB } from '../FireBase/FireBase';
 
 function MyState(props) {
-    const [mode, setMode] = useState('light');
-
+  const [mode, setMode] = useState('light');
+  
+  const [loading,setLoading] = useState(false);
     const toggleMode = () => {
         if (mode === 'light') {
             setMode('dark');
@@ -19,6 +20,7 @@ function MyState(props) {
         }
     }
 
+    // creacting product
     const [ products, setProducts] = useState({
       title:null,
       price:null,
@@ -35,6 +37,7 @@ function MyState(props) {
       )
     });
 
+    // add product
     const addProduct = async () => {
       if (products.title == null || products.price == null || products.imageUrl == null || products.category == null || products.description == null) {
         return toast.error('Please fill all fields')
@@ -59,7 +62,7 @@ function MyState(props) {
   
     const [product, setProduct] = useState([]);
   
-    // ****** get product
+    // get product
     const getProductData = async () => {
       setLoading(true)
       try {
@@ -86,16 +89,46 @@ function MyState(props) {
     useEffect(()=>{
       getProductData();
     },[]);
+    
+    //update product data
 
+    const editHandle = (item)=>{
+      setProducts(item)
+    }
+    const updateProduct = async ()=>{
+      try {
+        await setDoc(doc(fireDB,"products",products.id),products);
+        toast.success("Product updated successfully");
+        getProductData();
+        window.location.href = '/deshboard';
+        setLoading(false);
+        
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
 
+    // delete product
 
-    const [loading,setLoading] = useState(false);
+    const deletProduct = async (item)=>{
+      try {
+        setLoading(true);
+        await deleteDoc(doc(fireDB,'products',item.id));
+        toast.success("Product deleted successfully");
+        getProductData();
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
 
 
 
 
   return (
-    <MyContext.Provider value={{mode,toggleMode,loading,setLoading,products,setProducts,product,addProduct}}>
+    <MyContext.Provider value={{mode,toggleMode,loading,setLoading,products,setProducts,product,addProduct,updateProduct,deletProduct,editHandle}}>
        {props.children}
     </MyContext.Provider>
   )
