@@ -68,7 +68,7 @@ function MyState(props) {
       try {
         const q = query(
           collection(fireDB, "products"),
-          orderBy("time"),
+          // orderBy("time"),
           // limit(5)
         );
         const data = onSnapshot(q, (QuerySnapshot) => {
@@ -95,19 +95,23 @@ function MyState(props) {
     const editHandle = (item)=>{
       setProducts(item)
     }
-    const updateProduct = async ()=>{
+    const updateProduct = async () => {
+      setLoading(true)
       try {
-        await setDoc(doc(fireDB,"products",products.id),products);
-        toast.success("Product updated successfully");
-        getProductData();
-        window.location.href = '/deshboard';
-        setLoading(false);
-        
+
+          await setDoc(doc(fireDB, 'products', products.id), products)
+          toast.success("Product Updated successfully")
+          setTimeout(() => {
+              window.location.href = '/dashboard'
+          }, 800);
+          getProductData();
+          setLoading(false)
+
       } catch (error) {
-        console.log(error);
-        setLoading(false);
+          console.log(error)
+          setLoading(false)
       }
-    }
+  }
 
     // delete product
 
