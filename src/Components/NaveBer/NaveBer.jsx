@@ -14,7 +14,8 @@ const NaveBer = () => {
 
   const user = JSON.parse(localStorage.getItem('user'));  
 
-  const cardItems = useSelector((state) => state.cart)
+  const cardItems = useSelector((state) => state.cart.cart)
+  // console.log(cardItems)
 
   const logout = () =>{
     localStorage.clear("user");

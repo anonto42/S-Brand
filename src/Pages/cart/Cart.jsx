@@ -2,12 +2,20 @@ import React, { useContext } from 'react'
 import myContext from '../../Context/MyContext';
 import Layout from '../../Components/Layout/Layout';
 import Modal from '../../Components/modal/Modal';
+import { useSelector } from 'react-redux';
 
 
 function Cart() {
 
   const context = useContext(myContext)
   const { mode } = context;
+
+  const cartItems = useSelector((state)=>state.cart.cart)
+  
+    localStorage.setItem('cart',JSON.stringify(cartItems)); 
+
+
+  console.log(cartItems)
 
   return (
     <Layout >

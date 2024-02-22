@@ -9,17 +9,15 @@ function ProductCard() {
     const { mode ,product } = context
 
     const dispatch = useDispatch()
-    const cardItems = useSelector((state) => state.cart)
-
-    console.log(cardItems)
+    const cardItems = useSelector(state => state.cart.cart)
 
     const addCart = (product) =>{
         dispatch(addToCart(product))
         toast.success("Cart added successfully")
     }
-    useEffect(()=>{
-        localStorage.setItem('cart',JSON.stringify(cardItems)); 
-    },[cardItems])
+    // useEffect(()=>{
+        // localStorage.setItem('cart',JSON.stringify(cardItems)); 
+    // },[cardItems])
 
     return (
         <section className="text-gray-600 body-font">
@@ -50,7 +48,7 @@ function ProductCard() {
                                 {/* <p className="leading-relaxed mb-3">{item.description.}</p> */}
                                 <p className="leading-relaxed mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>{price}$</p>
                                 <div className=" flex justify-center">
-                                    <button onClick={addCart} type="button" className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
+                                    <button onClick={()=>addCart(item)} type="button" className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
 
                                 </div>
                             </div>
