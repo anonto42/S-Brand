@@ -1,7 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
+import myContext from '../../Context/MyContext'
+import { toast } from 'react-toastify'
+import { Timestamp, addDoc, collection } from 'firebase/firestore'
+import { fireDB } from '../../FireBase/FireBase'
+import Loader from '../Loder/Loader';
 
 export default function Modal() {
+
+    const {loading,setLoading} = useContext(myContext)
+
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -11,9 +19,71 @@ export default function Modal() {
     function openModal() {
         setIsOpen(true)
     }
+    const email = JSON.parse(localStorage.getItem("user")).user.email
+    const productTi = JSON.parse(localStorage.getItem("cart")).map((i)=> i.title)
+    const productPri = JSON.parse(localStorage.getItem("cart")).map((i)=>i.price)
+    const productUrl = JSON.parse(localStorage.getItem("cart")).map((i)=>i.imageUrl)
+    const produc = JSON.parse(localStorage.getItem("cart"))
+
+    const ppp= {
+        productTi,
+        productPri,
+        productUrl
+    }
+
+    // console.log(ppp)
+
+    const [name, setName] = useState("")
+    const [address, setAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("")
+
+    const order={
+        name:name,
+        address:address,
+        email:email,
+        phoneNumber:phoneNumber,
+        productInfo:ppp,
+        time:Timestamp.now(),
+        date: new Date().toLocaleString(
+          "en-US",{
+            month:"short",
+            day:"2-digit",
+            year:"numeric"
+          }
+        )
+    }
+    
+    const buyNow = async () =>{
+        setLoading(true)
+      
+           if (name === "" || address == "" || phoneNumber == "") {
+            return toast.error("All fields are required", {
+              position: "top-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            })
+          }
+          try {
+            await addDoc( collection(fireDB, "orders"), order)
+            toast.success("Product Add successfully")
+            closeModal()
+            setLoading(false)
+          } catch (error) {
+            console.log(error)
+            setLoading(false)
+          }
+    }
 
     return (
         <>
+        {
+            <Loader/> && loading
+        }
             <div className="  text-center rounded-lg text-white font-bold">
                 <button
                     type="button"
@@ -60,23 +130,20 @@ export default function Modal() {
                                                     <form className="space-y-4 md:space-y-6" action="#">
                                                         <div>
                                                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Enter Full Name</label>
-                                                            <input  type="name" name="name" id="name" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
+                                                            <input  type="name" name="name" value={name} onChange={e => setName(e.target.value)} id="name" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
                                                         </div>
                                                         <div>
                                                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Enter Full Address</label>
-                                                            <input type="text" name="address" id="address" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
-                                                        </div>
-                                                        <div>
-                                                            <label htmlFor="pincode" className="block mb-2 text-sm font-medium text-gray-900">Enter Pincode</label>
-                                                            <input type="text" name="pincode" id="pincode" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
+                                                            <input type="text" name="address" value={address} onChange={e=> setAddress(e.target.value)} id="address" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
                                                         </div>
                                                         <div>
                                                             <label htmlFor="mobileNumber" className="block mb-2 text-sm font-medium text-gray-900">Enter Mobile Number</label>
-                                                            <input type="text" name="mobileNumber" id="mobileNumber" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
+                                                            <input type="text" name="mobileNumber" 
+                                                            value={phoneNumber} onChange={e=> setPhoneNumber(e.target.value)}  id="mobileNumber" className=" border outline-0 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-100" required />
                                                         </div>
 
                                                     </form>
-                                                    <button onClick={ closeModal} type="button" className="focus:outline-none w-full text-white bg-violet-600 bg-green-600 hover:bg-violet-800  outline-0 font-medium rounded-lg text-sm px-5 py-2.5 ">Order Now</button>
+                                                    <button onClick={ ()=> {closeModal(); buyNow()}} type="button" className="focus:outline-none w-full text-white bg-violet-600 bg-green-600 hover:bg-violet-800  outline-0 font-medium rounded-lg text-sm px-5 py-2.5 ">Order Now</button>
                                                 </div>
                                             </div>
                                         </div>

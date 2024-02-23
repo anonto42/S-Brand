@@ -10,19 +10,17 @@ import { Link } from 'react-router-dom';
 function DashboardTab() {
     const { mode,loading , product ,updateProduct,deletProduct,editHandle} = useContext(myContext)
     
-    const [totalProduct,setTotalProduct] = useState();
-    
-    let [isOpen, setIsOpen] = useState(false)
+    // let [isOpen, setIsOpen] = useState(false)
 
-    // console.log(product)
+    // // console.log(product)
 
-    function closeModal() {
-        setIsOpen(false)
-    }
+    // function closeModal() {
+    //     setIsOpen(false)
+    // }
 
-    function openModal() {
-        setIsOpen(true)
-    }
+    // function openModal() {
+    //     setIsOpen(true)
+    // }
     return (
         <>
             <div className="container mx-auto">
@@ -246,10 +244,7 @@ function DashboardTab() {
                                                 Name
                                             </th>
                                             <th scope="col" className="px-6 py-3">
-                                                Address
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-                                                Pincode
+                                                UID
                                             </th>
                                             <th scope="col" className="px-6 py-3">
                                                 Phone Number
@@ -272,10 +267,7 @@ function DashboardTab() {
                                                         Name
                                                     </td>
                                                     <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        Address
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        181919
+                                                        UID
                                                     </td>
                                                     <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                         1991818818

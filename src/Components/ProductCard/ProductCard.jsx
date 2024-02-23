@@ -9,15 +9,18 @@ function ProductCard() {
     const { mode ,product } = context
 
     const dispatch = useDispatch()
+
     const cardItems = useSelector(state => state.cart.cart)
+
+    // localStorage.setItem('cart',JSON.stringify(cardItems))
 
     const addCart = (product) =>{
         dispatch(addToCart(product))
         toast.success("Cart added successfully")
     }
-    // useEffect(()=>{
-        // localStorage.setItem('cart',JSON.stringify(cardItems)); 
-    // },[cardItems])
+    useEffect(()=>{
+        localStorage.setItem('cart',JSON.stringify(cardItems)); 
+    },[cardItems])
 
     return (
         <section className="text-gray-600 body-font">
