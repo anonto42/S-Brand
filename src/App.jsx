@@ -1,7 +1,6 @@
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom"
 import './App.css'
 import Home from "./Pages/Home/Home"
-import Order from "./Pages/order/Order"
 import Cart from "./Pages/cart/Cart"
 import Dashbord from "./Pages/Admin/Dashboard/Dashbord"
 import NoPage from "./Pages/noPage/NoPage"
@@ -24,11 +23,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/order" element={
+          {/* <Route path="/order" element={
             <ProtectedRoutes>
               <Order/>
             </ProtectedRoutes>
-          } />
+          } /> */}
           <Route path="/cart" element={<Cart/>} />
           <Route path="/dashboard" element={
             <ProtectedRoutesForAdmin>

@@ -3,7 +3,7 @@ import myContext from '../../Context/MyContext'
 
 function Filter() {
     const context = useContext(myContext)
-    const { mode } = context
+    const {product , mode,searchkey,setSearchkey,setFilterPrice,setFilterType,filterPrice,filterType } = context
 
     return (
         <div>
@@ -22,6 +22,8 @@ function Filter() {
                         <input
                             type="text"
                             name="searchkey"
+                            value={searchkey}
+                            onChange={e=> setSearchkey(e.target.value)}
                             id="searchkey"
                             placeholder="Search here"
                             className="px-8 py-3 w-full rounded-md bg-violet-0 border-transparent outline-0 text-sm" style={{ backgroundColor: mode === 'dark' ? 'rgb(64 66 70)' : '', color: mode === 'dark' ? 'white' : '', }} />
@@ -36,17 +38,25 @@ function Filter() {
                     </div>
                     <div>
                         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-                            <select className="px-4 py-3 w-full rounded-md bg-gray-50 border-transparent outline-0 focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" style={{ backgroundColor: mode === 'dark' ? 'rgb(64 66 70)' : '', color: mode === 'dark' ? 'white' : '', }}>
-                                <option value="jacket">Logo</option>
-                                <option value="shirt">T-Shirt</option>
-                                <option value="mobile">Mockup</option>
-                                <option value="jacket">Business-Card</option>
+                            <select value={filterType} onChange={e=>setFilterType(e.target.value)} className="px-4 py-3 w-full rounded-md bg-gray-50 border-transparent outline-0 focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" style={{ backgroundColor: mode === 'dark' ? 'rgb(64 66 70)' : '', color: mode === 'dark' ? 'white' : '', }}>
+                                {
+                                    product.map((i)=>{
+
+                                        return(
+                                            <option value={i.category}>{i.category}</option>
+                                        )
+                                    })
+                                }
                             </select>
-                            <select className="px-4 py-3 w-full rounded-md bg-gray-50 border-transparent outline-0  focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" style={{ backgroundColor: mode === 'dark' ? 'rgb(64 66 70)' : '', color: mode === 'dark' ? 'white' : '', }}>
-                                <option value="5">5$</option>
-                                <option value="10">10$</option>
-                                <option value="15">15$</option>
-                                <option value="20">20$</option>
+                            <select value={filterPrice} onChange={e=>setFilterPrice(e.target.value)} className="px-4 py-3 w-full rounded-md bg-gray-50 border-transparent outline-0  focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" style={{ backgroundColor: mode === 'dark' ? 'rgb(64 66 70)' : '', color: mode === 'dark' ? 'white' : '', }}>
+                                {
+                                    product.map((i)=>{
+
+                                        return(
+                                            <option value={i.price}>{i.price}$</option>
+                                        )
+                                    })
+                                }
                             </select>
 
                         </div>

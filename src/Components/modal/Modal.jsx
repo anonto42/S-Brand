@@ -20,18 +20,9 @@ export default function Modal() {
         setIsOpen(true)
     }
     const email = JSON.parse(localStorage.getItem("user")).user.email
-    const productTi = JSON.parse(localStorage.getItem("cart")).map((i)=> i.title)
-    const productPri = JSON.parse(localStorage.getItem("cart")).map((i)=>i.price)
-    const productUrl = JSON.parse(localStorage.getItem("cart")).map((i)=>i.imageUrl)
-    const produc = JSON.parse(localStorage.getItem("cart"))
+    const product = JSON.parse(localStorage.getItem("cart"))
 
-    const ppp= {
-        productTi,
-        productPri,
-        productUrl
-    }
-
-    // console.log(ppp)
+    console.log(product)
 
     const [name, setName] = useState("")
     const [address, setAddress] = useState("");
@@ -42,7 +33,7 @@ export default function Modal() {
         address:address,
         email:email,
         phoneNumber:phoneNumber,
-        productInfo:ppp,
+        productInfo:product,
         time:Timestamp.now(),
         date: new Date().toLocaleString(
           "en-US",{

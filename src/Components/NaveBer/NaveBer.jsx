@@ -16,7 +16,7 @@ const NaveBer = () => {
 
   const cardItems = useSelector((state) => state.cart.cart)
 
-  const cartItemsLocalStorage = JSON.parse(localStorage.getItem('cart'))
+  // const cartItemsLocalStorage = JSON.parse(localStorage.getItem('cart'))
 
   // console.log(cartItemsLocalStorage)
 
@@ -70,15 +70,6 @@ const NaveBer = () => {
                     <Link to={'/allproducts'} className="text-sm font-medium text-gray-900 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                       All Products
                     </Link>
-                    {
-                      user ? 
-                    <div className="flow-root">
-                      <Link to={'/order'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
-                        Order
-                      </Link>
-                    </div>
-                            : ''
-                    }
                     
                     { user?.user?.email === "anontom90@gmail.com" ?
                     <div className="flow-root">
@@ -102,7 +93,7 @@ const NaveBer = () => {
                       <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
                         <img
                           className="inline-block w-10 h-10 rounded-full"
-                          src="https://scontent.fdac157-1.fna.fbcdn.net/v/t39.30808-6/420626434_344488128411211_6767612565160676981_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeGaBkCGIXOrDgWaUqg_cU8fFCUCOz4_qMgUJQI7Pj-oyJFDcGkSILbfQpZyUwiTlT-1jLowb3ys2pq4Qti_5MK8&_nc_ohc=FWKXkU3d0U0AX-Xc8fg&_nc_ht=scontent.fdac157-1.fna&oh=00_AfBBlLECBk7QqN18ddNOtboUErSSm34qEiRMnBxKXNwSgg&oe=65D959AF"
+                          // src="https://scontent.fdac157-1.fna.fbcdn.net/v/t39.30808-6/420626434_344488128411211_6767612565160676981_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeGaBkCGIXOrDgWaUqg_cU8fFCUCOz4_qMgUJQI7Pj-oyJFDcGkSILbfQpZyUwiTlT-1jLowb3ys2pq4Qti_5MK8&_nc_ohc=FWKXkU3d0U0AX-Xc8fg&_nc_ht=scontent.fdac157-1.fna&oh=00_AfBBlLECBk7QqN18ddNOtboUErSSm34qEiRMnBxKXNwSgg&oe=65D959AF"
                           alt="Awater" />                                        </Link>
                     </div>
                   </div>
@@ -164,12 +155,6 @@ const NaveBer = () => {
                     <Link to={'/allproducts'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                       All Products
                     </Link>
-                    { user ? 
-                    <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                      Order
-                    </Link>
-                      : ''
-                    }
                     {user?.user?.email === "anontom90@gmail.com" ? 
                     <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                       Admin
@@ -187,23 +172,12 @@ const NaveBer = () => {
                   }
                   </div>
 
-                  {/* <div className="hidden lg:ml-8 lg:flex">
-                    <a href="#" className="flex items-center text-gray-700 ">
-                      <img
-                        src="https://ecommerce-sk.vercel.app/img/indiaflag.png"
-                        alt=""
-                        className="block h-auto w-5 flex-shrink-0"
-                      />
-                      <span className="ml-3 block text-sm font-medium" style={{ color: mode === 'dark' ? 'white' : '', }}>Bangladesh</span>
-                    </a>
-                  </div> */}
-
 
                   <div className="hidden lg:ml-8 lg:flex">
                     <a href="#" className="flex items-center text-gray-700 ">
                       <img
                         className="inline-block w-10 h-10 rounded-full"
-                        src="https://scontent.fdac157-1.fna.fbcdn.net/v/t39.30808-6/420626434_344488128411211_6767612565160676981_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeGaBkCGIXOrDgWaUqg_cU8fFCUCOz4_qMgUJQI7Pj-oyJFDcGkSILbfQpZyUwiTlT-1jLowb3ys2pq4Qti_5MK8&_nc_ohc=FWKXkU3d0U0AX-Xc8fg&_nc_ht=scontent.fdac157-1.fna&oh=00_AfBBlLECBk7QqN18ddNOtboUErSSm34qEiRMnBxKXNwSgg&oe=65D959AF"
+                        // src="https://scontent.fdac157-1.fna.fbcdn.net/v/t39.30808-6/420626434_344488128411211_6767612565160676981_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeGaBkCGIXOrDgWaUqg_cU8fFCUCOz4_qMgUJQI7Pj-oyJFDcGkSILbfQpZyUwiTlT-1jLowb3ys2pq4Qti_5MK8&_nc_ohc=FWKXkU3d0U0AX-Xc8fg&_nc_ht=scontent.fdac157-1.fna&oh=00_AfBBlLECBk7QqN18ddNOtboUErSSm34qEiRMnBxKXNwSgg&oe=65D959AF"
                         alt="Awater" />
                     </a>
                   </div>
