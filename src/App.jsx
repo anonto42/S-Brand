@@ -20,7 +20,7 @@ function App() {
 
   return (
     <MyState>
-      <Router>
+      <Router basename="/S-Brand">
         <Routes>
           <Route path="/" element={<Home/>} />
           {/* <Route path="/order" element={
