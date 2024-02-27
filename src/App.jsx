@@ -22,7 +22,7 @@ function App() {
     <MyState>
       <Router basename="/S-Brand">
         <Routes>
-          <Route path="/S-Brand" element={<Home/>} />
+          <Route path="/" element={<Home/>} />
           {/* <Route path="/order" element={
             <ProtectedRoutes>
               <Order/>
