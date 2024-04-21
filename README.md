@@ -1,4 +1,9 @@
 # S-Brand
 
 # Design selling Web Application 
-# S-Brand
+
+This is a fullstact project.
+@Backend is macked by firebase
+and the frontend is maked by (React.js)
+
+#live_link: https://s-brand.netlify.app
